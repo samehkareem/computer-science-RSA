@@ -1,0 +1,60 @@
+import math
+import time
+
+def generate_rsa_keys(p, q):
+    n = p * q
+    phi_n = (p - 1) * (q - 1)
+    e = choose_public_exponent(phi_n)
+    d = modular_inverse(e, phi_n)
+
+    public_key = (e, n)
+    private_key = (d, n)
+    
+    return public_key, private_key
+
+def choose_public_exponent(phi_n):
+    # Choosing a fixed value for e (typically 65537)
+    e = 65537
+    while math.gcd(e, phi_n) != 1:
+        e += 2  # Incrementing e by 2 until it's coprime with phi_n
+    return e
+
+def extended_euclidean_algorithm(a, b):
+    if b == 0:
+        return a, 1, 0
+    gcd, x1, y1 = extended_euclidean_algorithm(b, a % b)
+    x = y1
+    y = x1 - (a // b) * y1
+    return gcd, x, y
+
+def modular_inverse(e, phi_n):
+    gcd, x, _ = extended_euclidean_algorithm(e, phi_n)
+    if gcd == 1:
+        return x % phi_n
+    else:
+        raise ValueError("No modular inverse exists")
+
+def calculate_key_generation_time(p, q):
+    start_time = time.time()
+    generate_rsa_keys(p, q)
+    end_time = time.time()
+    return end_time - start_time
+
+# Test case for 8-bit
+p_8 = 23
+q_8 = 31
+print("Test Case for 8-bit :")
+public_key_8, private_key_8 = generate_rsa_keys(p_8, q_8)
+print("Public Key (e, n):", public_key_8)
+print("Private Key (d, n):", private_key_8)
+print("Time taken for key generation:", calculate_key_generation_time(p_8, q_8), "seconds")
+print()
+
+# Test case for 16-bit
+p_16 = 103
+q_16 = 113
+print("Test Case for 16-bit :")
+public_key_16, private_key_16 = generate_rsa_keys(p_16, q_16)
+print("Public Key (e, n):", public_key_16)
+print("Private Key (d, n):", private_key_16)
+print("Time taken for key generation:", calculate_key_generation_time(p_16, q_16), "seconds")
