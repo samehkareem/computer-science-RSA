@@ -1,0 +1,81 @@
+import math
+import time
+
+def generate_rsa_keys(p, q):
+    n = p * q
+    phi_n = (p - 1) * (q - 1)
+    e = choose_public_exponent(phi_n)
+    d = modular_inverse(e, phi_n)
+    return (e, n, d)
+
+def choose_public_exponent(phi_n):
+    # Choosing a fixed value for e (typically 65537)
+    e = 65537
+    while math.gcd(e, phi_n) != 1:
+        e += 2  # Incrementing e by 2 until it's coprime with phi_n
+    return e
+
+def brute_force_private_exponent(e, phi_n):
+    d = 2
+    while True:
+        if (d * e) % phi_n == 1:
+            return d
+        d += 1
+
+def extended_euclidean_algorithm(a, b):
+    if b == 0:
+        return a, 1, 0
+    gcd, x1, y1 = extended_euclidean_algorithm(b, a % b)
+    x = y1
+    y = x1 - (a // b) * y1
+    return gcd, x, y
+
+def modular_inverse(e, phi_n):
+    gcd, x, _ = extended_euclidean_algorithm(e, phi_n)
+    if gcd == 1:
+        return x % phi_n
+    else:
+        raise ValueError("No modular inverse exists")
+
+def calculate_key_generation_time(p, q):
+    start_time = time.time()
+    e, n, d = generate_rsa_keys(p, q)
+    end_time = time.time()
+    return e, n, d, end_time - start_time
+
+# Test cases for 8-bit RSA keys
+p_8_1 = 23
+q_8_1 = 31
+print("Test Case 1 for 8-bit RSA Keys:")
+e_8_1, n_8_1, d_8_1, generation_time_8_1 = calculate_key_generation_time(p_8_1, q_8_1)
+print("Public Key (e, n):", e_8_1, n_8_1)
+print("Private Key (d, n):", d_8_1, n_8_1)
+print("Time taken for key generation:", generation_time_8_1, "seconds")
+print()
+
+p_8_2 = 17
+q_8_2 = 29
+print("Test Case 2 for 8-bit RSA Keys:")
+e_8_2, n_8_2, d_8_2, generation_time_8_2 = calculate_key_generation_time(p_8_2, q_8_2)
+print("Public Key (e, n):", e_8_2, n_8_2)
+print("Private Key (d, n):", d_8_2, n_8_2)
+print("Time taken for key generation:", generation_time_8_2, "seconds")
+print()
+
+# Test cases for 16-bit RSA keys
+p_16_1 = 103
+q_16_1 = 113
+print("Test Case 1 for 16-bit RSA Keys:")
+e_16_1, n_16_1, d_16_1, generation_time_16_1 = calculate_key_generation_time(p_16_1, q_16_1)
+print("Public Key (e, n):", e_16_1, n_16_1)
+print("Private Key (d, n):", d_16_1, n_16_1)
+print("Time taken for key generation:", generation_time_16_1, "seconds")
+print()
+
+p_16_2 = 157
+q_16_2 = 173
+print("Test Case 2 for 16-bit RSA Keys:")
+e_16_2, n_16_2, d_16_2, generation_time_16_2 = calculate_key_generation_time(p_16_2, q_16_2)
+print("Public Key (e, n):", e_16_2, n_16_2)
+print("Private Key (d, n):", d_16_2, n_16_2)
+print("Time taken for key generation:", generation_time_16_2, "seconds")
