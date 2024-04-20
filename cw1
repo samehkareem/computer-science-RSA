@@ -13,7 +13,7 @@ def generate_rsa_keys(p, q):
     return public_key, private_key
 
 def choose_public_exponent(phi_n):
-    # Choosing a fixed value for e 
+
     e = 65537
     while math.gcd(e, phi_n) != 1:
         e += 2  
