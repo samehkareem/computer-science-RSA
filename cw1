@@ -13,10 +13,10 @@ def generate_rsa_keys(p, q):
     return public_key, private_key
 
 def choose_public_exponent(phi_n):
-    # Choosing a fixed value for e (typically 65537)
+    # Choosing a fixed value for e 
     e = 65537
     while math.gcd(e, phi_n) != 1:
-        e += 2  # Incrementing e by 2 until it's coprime with phi_n
+        e += 2  
     return e
 
 def extended_euclidean_algorithm(a, b):
