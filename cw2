@@ -46,7 +46,7 @@ def calculate_key_generation_time(p, q):
 # Test cases for 8-bit 
 p_8_1 = 23
 q_8_1 = 31
-print("Test Case 1 for 8-bit RSA Keys:")
+print("Test Case 1 for 8-bit:")
 e_8_1, n_8_1, d_8_1, generation_time_8_1 = calculate_key_generation_time(p_8_1, q_8_1)
 print("Public Key (e, n):", e_8_1, n_8_1)
 print("Private Key (d, n):", d_8_1, n_8_1)
@@ -55,7 +55,7 @@ print()
 
 p_8_2 = 17
 q_8_2 = 29
-print("Test Case 2 for 8-bit RSA Keys:")
+print("Test Case 2 for 8-bit:")
 e_8_2, n_8_2, d_8_2, generation_time_8_2 = calculate_key_generation_time(p_8_2, q_8_2)
 print("Public Key (e, n):", e_8_2, n_8_2)
 print("Private Key (d, n):", d_8_2, n_8_2)
@@ -65,7 +65,7 @@ print()
 # Test cases for 16-bit
 p_16_1 = 103
 q_16_1 = 113
-print("Test Case 1 for 16-bit RSA Keys:")
+print("Test Case 1 for 16-bit:")
 e_16_1, n_16_1, d_16_1, generation_time_16_1 = calculate_key_generation_time(p_16_1, q_16_1)
 print("Public Key (e, n):", e_16_1, n_16_1)
 print("Private Key (d, n):", d_16_1, n_16_1)
@@ -74,7 +74,7 @@ print()
 
 p_16_2 = 157
 q_16_2 = 173
-print("Test Case 2 for 16-bit RSA Keys:")
+print("Test Case 2 for 16-bit:")
 e_16_2, n_16_2, d_16_2, generation_time_16_2 = calculate_key_generation_time(p_16_2, q_16_2)
 print("Public Key (e, n):", e_16_2, n_16_2)
 print("Private Key (d, n):", d_16_2, n_16_2)
