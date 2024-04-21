@@ -22,7 +22,7 @@ def brute_force_private_exponent(e, phi_n):
             return d
         d += 1
 
-def extended_euclidean_algorithm(a, b):
+def extended_euclidean_algorithm(a, b):                 
     if b == 0:
         return a, 1, 0
     gcd, x1, y1 = extended_euclidean_algorithm(b, a % b)
@@ -37,45 +37,68 @@ def modular_inverse(e, phi_n):
     else:
         raise ValueError("No modular inverse exists")
 
-def calculate_key_generation_time(p, q):
+def calculate_key_generation_time(p, q, message):
     start_time = time.time()
     e, n, d = generate_rsa_keys(p, q)
     end_time = time.time()
-    return e, n, d, end_time - start_time
+    
+    # Encryption
+    encrypted_message = pow(message, e, n)
+    
+    # Decryption
+    decrypted_message = pow(encrypted_message, d, n)
+    
+    return e, n, d, end_time - start_time, encrypted_message, decrypted_message
 
 # Test cases for 8-bit 
 p_8_1 = 23
 q_8_1 = 31
+message_8_1 = 42
 print("Test Case 1 for 8-bit:")
-e_8_1, n_8_1, d_8_1, generation_time_8_1 = calculate_key_generation_time(p_8_1, q_8_1)
+e_8_1, n_8_1, d_8_1, generation_time_8_1, encrypted_message_8_1, decrypted_message_8_1 = calculate_key_generation_time(p_8_1, q_8_1, message_8_1)
 print("Public Key (e, n):", e_8_1, n_8_1)
 print("Private Key (d, n):", d_8_1, n_8_1)
-print("Time taken for key generation:", generation_time_8_1, "seconds")
+print("Time taken :", generation_time_8_1, "seconds")
+print("Original message:", message_8_1)
+print("Encrypted message:", encrypted_message_8_1)
+print("Decrypted message:", decrypted_message_8_1)
 print()
 
 p_8_2 = 17
 q_8_2 = 29
+message_8_2 = 87
 print("Test Case 2 for 8-bit:")
-e_8_2, n_8_2, d_8_2, generation_time_8_2 = calculate_key_generation_time(p_8_2, q_8_2)
+e_8_2, n_8_2, d_8_2, generation_time_8_2, encrypted_message_8_2, decrypted_message_8_2 = calculate_key_generation_time(p_8_2, q_8_2, message_8_2)
 print("Public Key (e, n):", e_8_2, n_8_2)
 print("Private Key (d, n):", d_8_2, n_8_2)
-print("Time taken for key generation:", generation_time_8_2, "seconds")
+print("Time taken :", generation_time_8_2, "seconds")
+print("Original message:", message_8_2)
+print("Encrypted message:", encrypted_message_8_2)
+print("Decrypted message:", decrypted_message_8_2)
 print()
 
 # Test cases for 16-bit
 p_16_1 = 103
 q_16_1 = 113
+message_16_1 = 1234
 print("Test Case 1 for 16-bit:")
-e_16_1, n_16_1, d_16_1, generation_time_16_1 = calculate_key_generation_time(p_16_1, q_16_1)
+e_16_1, n_16_1, d_16_1, generation_time_16_1, encrypted_message_16_1, decrypted_message_16_1 = calculate_key_generation_time(p_16_1, q_16_1, message_16_1)
 print("Public Key (e, n):", e_16_1, n_16_1)
 print("Private Key (d, n):", d_16_1, n_16_1)
-print("Time taken for key generation:", generation_time_16_1, "seconds")
+print("Time taken :", generation_time_16_1, "seconds")
+print("Original message:", message_16_1)
+print("Encrypted message:", encrypted_message_16_1)
+print("Decrypted message:", decrypted_message_16_1)
 print()
 
 p_16_2 = 157
 q_16_2 = 173
+message_16_2 = 4567
 print("Test Case 2 for 16-bit:")
-e_16_2, n_16_2, d_16_2, generation_time_16_2 = calculate_key_generation_time(p_16_2, q_16_2)
+e_16_2, n_16_2, d_16_2, generation_time_16_2, encrypted_message_16_2, decrypted_message_16_2 = calculate_key_generation_time(p_16_2, q_16_2, message_16_2)
 print("Public Key (e, n):", e_16_2, n_16_2)
 print("Private Key (d, n):", d_16_2, n_16_2)
-print("Time taken for key generation:", generation_time_16_2, "seconds")
+print("Time taken :", generation_time_16_2, "seconds")
+print("Original message:", message_16_2)
+print("Encrypted message:", encrypted_message_16_2)
+print("Decrypted message:", decrypted_message_16_2)
