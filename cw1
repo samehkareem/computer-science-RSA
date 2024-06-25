@@ -1,5 +1,4 @@
 import math
-import time
 
 def generate_rsa_keys(p, q):
     n = p * q
@@ -13,7 +12,6 @@ def generate_rsa_keys(p, q):
     return public_key, private_key
 
 def choose_public_exponent(phi_n):
-
     e = 65537
     while math.gcd(e, phi_n) != 1:
         e += 2  
@@ -34,11 +32,12 @@ def modular_inverse(e, phi_n):
     else:
         raise ValueError("No modular inverse exists")
 
-def calculate_key_generation_time(p, q):
-    start_time = time.time()
-    generate_rsa_keys(p, q)
-    end_time = time.time()
-    return end_time - start_time
+def factorize_n(n):
+    # Brute-force factorization attempt
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return i, n // i
+    return None, None
 
 # Test case for 8-bit
 p_8 = 23
@@ -47,7 +46,14 @@ print("Test Case for 8-bit :")
 public_key_8, private_key_8 = generate_rsa_keys(p_8, q_8)
 print("Public Key (e, n):", public_key_8)
 print("Private Key (d, n):", private_key_8)
-print("Time taken for key generation:", calculate_key_generation_time(p_8, q_8), "seconds")
+
+# Attempt to factorize the modulus n
+p_found, q_found = factorize_n(public_key_8[1])
+if p_found and q_found:
+    print("Factorization attempt successful!")
+    print("Found factors p, q:", p_found, q_found)
+else:
+    print("Factorization attempt unsuccessful.")
 print()
 
 # Test case for 16-bit
@@ -57,4 +63,11 @@ print("Test Case for 16-bit :")
 public_key_16, private_key_16 = generate_rsa_keys(p_16, q_16)
 print("Public Key (e, n):", public_key_16)
 print("Private Key (d, n):", private_key_16)
-print("Time taken for key generation:", calculate_key_generation_time(p_16, q_16), "seconds")
+
+# Attempt to factorize the modulus n
+p_found, q_found = factorize_n(public_key_16[1])
+if p_found and q_found:
+    print("Factorization attempt successful!")
+    print("Found factors p, q:", p_found, q_found)
+else:
+    print("Factorization attempt unsuccessful.")
